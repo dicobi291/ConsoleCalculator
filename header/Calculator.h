@@ -14,8 +14,6 @@ struct Value
     ValuePart integer_part;
     ValuePart float_part;
     bool is_negative {false};
-    // Value() = default;
-    // Value(int int_part, int fl_part, bool is_neg);
 
     bool operator==(const Value &val) const;
 };
@@ -31,6 +29,9 @@ class Calculator
 public:
     Calculator() = default;
     ~Calculator() = default;
+
+    Calculator (const Calculator &) = delete;
+    Calculator &operator=(const Calculator &) = delete;
 
     Value sum(Value &val_1, Value &val_2);
     Value diff(Value &val_1, Value &val_2);

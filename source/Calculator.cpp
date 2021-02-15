@@ -85,23 +85,6 @@ static void roundOffFloatPart(Container &float_res)
     }
 }
 
-// Value::Value(int int_part, int fl_part, bool is_neg) :
-//     is_negative(is_neg)
-// {
-//     ResultValuePart int_val, float_val;
-//     do {
-//         int_val.push_front(int_part % 10);
-//         int_part /= 10;
-//     } while (int_part);
-//     copyFromSrcToDst(int_val, integer_part);
-
-//     while (fl_part) {
-//         float_val.push_front(fl_part % 10);
-//         fl_part /= 10;
-//     }
-//     copyFromSrcToDst(float_val, float_part);
-// }
-
 bool Value::operator==(const Value &val) const
 {
     return (integer_part == val.integer_part) && (float_part == val.float_part) && (is_negative == val.is_negative);
@@ -281,23 +264,6 @@ void Calculator::floatPartDiff(ValuePart &integer_part_1, ValuePart &val_part_1,
         --idx_1;
         --idx_2;
     }
-    //remove unnecessary zero from back
-    // while (!res.empty() && res.back() == 0) {
-    //     res.pop_back();
-    // }
-    // //round off float part
-    // if (res.size() > MAX_FLOAT_PART_LENGTH) {
-    //     ValuePartUnit val = 0;
-    //     for (auto back_it = res.rbegin(); back_it != res.rend(); ++back_it) {
-    //         if (back_it != --res.rend() && val > 5) {
-    //             (*back_it)++;
-    //         }
-    //         val = *back_it;
-    //     }   
-    //     while (res.size() > MAX_FLOAT_PART_LENGTH) {
-    //         res.pop_back();
-    //     }
-    // }
 }
 
 ValuePartUnit Calculator::getValuePartUnit(const ValuePart &val_part, const int idx)
@@ -411,18 +377,6 @@ Value Calculator::multiple(Value &val_1, Value &val_2)
         result.integer_part.push_back(tmp.integer_part[i]);
     }
 
-    //round off the float part, if necessary
-    // if ((tmp.integer_part.size() - floatPartNum) > MAX_FLOAT_PART_LENGTH) {
-    //     for (int i = tmp.integer_part.size() - 1; i > tmp.integer_part.size()  - floatPartNum + 1; --i) {
-    //         if (tmp.integer_part[i] > 5) {
-    //             tmp.integer_part[i - 1]++;
-    //         }
-    //     }
-    // }
-
-    // while (!result.float_part.empty() && result.float_part.back() == 0) {
-    //     result.float_part.pop_back();
-    // } 
     if ((val_1.is_negative && val_2.is_negative) ||
         (!val_1.is_negative && !val_2.is_negative)) {
         result.is_negative = false;
@@ -562,18 +516,6 @@ Value Calculator::divide(Value &val_1, Value &val_2)
     }
 
     roundOffFloatPart(result.float_part);
-    // if (result.float_part.size() > MAX_FLOAT_PART_LENGTH) {
-    //     ValuePartUnit val = 0;
-    //     for (auto back_it = result.float_part.rbegin(); back_it != result.float_part.rend(); ++back_it) {
-    //         if (back_it != (result.float_part.rend() - 1) && val > 5) {
-    //             (*back_it)++;
-    //         }
-    //         val = *back_it;
-    //     }
-    //     while (result.float_part.size() > MAX_FLOAT_PART_LENGTH) {
-    //         result.float_part.pop_back();
-    //     }
-    // }
 
     if ((val_1.is_negative && val_2.is_negative) ||
         (!val_1.is_negative && !val_2.is_negative)) {
